@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
+import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 
 import de.remi.masterdetail.databinding.FragmentSportsListBinding;
 import de.remi.masterdetail.model.Sport;
@@ -43,6 +43,9 @@ public class SportsListFragment extends Fragment implements SportsAdapter.ItemCl
         super.onViewCreated(view, savedInstanceState);
         SportsAdapter adapter = new SportsAdapter(requireContext(), this);
         binding.recyclerView.setAdapter(adapter);
+        SlidingPaneLayout slidingPaneLayout = binding.slidingPaneLayout;
+        SportsListOnBackPressedCallback callback = new SportsListOnBackPressedCallback(slidingPaneLayout);
+        requireActivity().getOnBackPressedDispatcher().addCallback(callback);
         sportsViewModel.getSportList().observe(this, sportList -> adapter.submitList(sportList));
     }
 
@@ -50,8 +53,36 @@ public class SportsListFragment extends Fragment implements SportsAdapter.ItemCl
     public void itemClicked(Sport sport) {
         Log.d(TAG, "itemClicked: " + sport.id);
         sportsViewModel.setCurrentRecord(sport);
-        NavDirections action =
-                SportsListFragmentDirections.actionSportsListFragmentToSportsNewsFragment();
-        Navigation.findNavController(requireView()).navigate(action);
+        binding.slidingPaneLayout.openPane();
+    }
+
+    class SportsListOnBackPressedCallback extends OnBackPressedCallback implements SlidingPaneLayout.PanelSlideListener {
+        private SlidingPaneLayout slidingPaneLayout;
+
+        public SportsListOnBackPressedCallback(SlidingPaneLayout slidingPaneLayout) {
+            super(slidingPaneLayout.isSlideable() && slidingPaneLayout.isOpen());
+            this.slidingPaneLayout = slidingPaneLayout;
+            slidingPaneLayout.addPanelSlideListener(this);
+        }
+
+        @Override
+        public void handleOnBackPressed() {
+            slidingPaneLayout.closePane();
+        }
+
+        @Override
+        public void onPanelSlide(@NonNull View panel, float slideOffset) {
+
+        }
+
+        @Override
+        public void onPanelOpened(@NonNull View panel) {
+            setEnabled(true);
+        }
+
+        @Override
+        public void onPanelClosed(@NonNull View panel) {
+            setEnabled(false);
+        }
     }
 }
