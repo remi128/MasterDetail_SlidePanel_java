@@ -26,6 +26,7 @@ public class SportsListFragment extends Fragment implements SportsAdapter.ItemCl
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //important: get a common ViewModel from the activity
         sportsViewModel = new ViewModelProvider(requireActivity()).get(SportsViewModel.class);
     }
 
