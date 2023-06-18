@@ -39,6 +39,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.slidingpanelayout:slidingpanelayout:1.2.0'
 
+    implementation 'androidx.slidingpanelayout:slidingpanelayout:1.2.0'
+
     // navigation components
     implementation "androidx.navigation:navigation-fragment:$rootProject.nav_version"
     implementation "androidx.navigation:navigation-ui:$rootProject.nav_version"
