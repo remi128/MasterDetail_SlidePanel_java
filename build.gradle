@@ -1,5 +1,43 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    dependencies {
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3")
+        classpath 'com.google.gms:google-services:4.3.15'
+        // Add the dependency for the Crashlytics Gradle plugin
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
+        // Add the dependency for the Performance Monitoring Gradle plugin
+        classpath 'com.google.firebase:perf-plugin:1.4.2'
+    }
+}
+
 plugins {
     id 'com.android.application' version '7.4.0' apply false
     id 'com.android.library' version '7.4.0' apply false
+}
+
+ext {
+    appCompatVersion = '1.6.1'
+    constraintLayoutVersion = '2.1.4'
+    coreTestingVersion = '2.2.0'
+    lifecycleVersion = '2.6.1'
+    lifecycleServiceVersion = '2.2.0'
+    materialVersion = '1.9.0'
+    roomVersion = '2.5.1'
+    nav_version = '2.6.0'
+    guava_version = '32.0.1-jre'
+    osmdroidVersion = '6.1.16'
+    preferencesVersion = '1.2.0'
+    googleLocationVersion = '21.0.1'
+    openCsvVersion = '5.7.1'
+    gsonVersion = '2.10.1'
+    // testing
+    junitVersion = '4.13.2'
+    espressoVersion = '3.5.1'
+    androidxJunitVersion = '1.1.5'
+    mockitoVersion = '5.3.1'
+    robolectricVersion = '4.10.3'
+    androidXTestVersion = '1.5.0'
+
+    //debug
+    leakCanaryVersion = '2.10'
 }
